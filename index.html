@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WR Undergrad Connect — Issue 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --royal:#003DA5;
+    --royal-deep:#00204F;
+    --gold:#C9A84C;
+    --gold-bright:#E8C766;
+    --cream:#FAF7EF;
+    --ink:#12172A;
+    --line: rgba(0,61,165,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
 
+  /* MASTHEAD */
+  .masthead{
+    background:linear-gradient(160deg, var(--royal) 0%, var(--royal-deep) 100%);
+    padding:44px 28px 36px;
+    position:relative;
+    overflow:hidden;
+  }
+  .masthead-photo-wrap{
+    position:absolute;
+    right:24px; top:24px;
+    width:104px; height:104px;
+    z-index:2;
+  }
+  .masthead-photo-wrap::before{
+    content:"";
+    position:absolute;
+    inset:-9px;
+    border-radius:50%;
+    border:1.5px solid rgba(232,199,102,0.35);
+  }
+  .masthead-photo{
+    width:104px; height:104px;
+    border-radius:50%;
+    border:2px dashed rgba(232,199,102,0.75);
+    background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    overflow:hidden;
+  }
+  .masthead-photo span{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:rgba(255,255,255,0.6);
+    padding:0 10px;
+    line-height:1.35;
+  }
+
+  /* REUSABLE PHOTO BLOCKS */
+  .photo-block{
+    border:2px dashed var(--gold);
+    border-radius:14px;
+    background:#FBF6E9;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    gap:8px;
+    padding:30px 16px;
+    margin:18px 0;
+  }
+  .photo-block svg{opacity:.5;}
+  .photo-block span{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    letter-spacing:.03em;
+    color:#8a7440;
+    line-height:1.4;
+  }
+  .photo-block.tall{aspect-ratio:4/3;}
+  .photo-block.wide{aspect-ratio:16/7;margin:0;}
+  .photo-block.on-dark{
+    background:rgba(255,255,255,0.05);
+    border-color:rgba(232,199,102,0.5);
+  }
+  .photo-block.on-dark span{color:rgba(255,255,255,0.55);}
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+  .photo-grid .photo-block{margin:0;aspect-ratio:1/1;padding:16px;}
+  .eyebrow{
+    font-family:'DM Mono', monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--gold-bright);
+    margin:0 0 10px;
+  }
+  .masthead h1{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:44px;
+    line-height:0.95;
+    letter-spacing:.01em;
+    color:#fff;
+    margin:0 0 14px;
+    text-transform:uppercase;
+  }
+  .masthead h1 span{color:var(--gold-bright);}
+  .masthead p.tag{
+    color:rgba(255,255,255,0.78);
+    font-size:15px;
+    margin:0;
+    max-width:420px;
+  }
+  .issue-tab{
+    display:inline-block;
+    margin-top:22px;
+    padding:6px 14px;
+    border:1px solid rgba(232,199,102,0.5);
+    border-radius:100px;
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--gold-bright);
+  }
+
+  /* SECTION SHELLS */
+  section{padding:34px 28px;}
+  .section-label{
+    font-family:'DM Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--royal);
+    margin:0 0 6px;
+  }
+  h2.section-title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:26px;
+    letter-spacing:.01em;
+    margin:0 0 18px;
+    color:var(--ink);
+  }
+
+  /* INTRO */
+  .intro{background:#fff; border-bottom:1px solid var(--line);}
+  .intro p{font-size:15px;line-height:1.65;margin:0 0 14px;color:#2a3040;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .chip{
+    font-family:'DM Mono',monospace;
+    font-size:11.5px;
+    padding:7px 12px;
+    border-radius:100px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    color:var(--royal-deep);
+    white-space:nowrap;
+  }
+  .chip b{color:var(--gold);}
+
+  /* ACTION ITEMS - PATCH STYLE */
+  .actions{background:var(--cream);}
+  .patch-list{display:flex;flex-direction:column;gap:14px;}
+  .patch{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px;
+    position:relative;
+  }
+  .patch-num{
+    flex:0 0 auto;
+    width:40px;height:40px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Anton',sans-serif;
+    color:var(--royal);
+    font-size:16px;
+    background:linear-gradient(180deg,#fff, #FBF6E9);
+  }
+  .patch-body h3{
+    margin:0 0 6px;
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .patch-body p{
+    margin:0 0 10px;
+    font-size:13.8px;
+    line-height:1.55;
+    color:#4a5064;
+  }
+  .patch-meta{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--royal);
+    letter-spacing:.03em;
+    margin-bottom:10px;
+    display:block;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--royal);
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:8px;
+  }
+  .btn.ghost{
+    background:transparent;
+    border:1.5px solid var(--royal);
+    color:var(--royal);
+  }
+  .note{
+    font-size:12px;
+    color:#6a7086;
+    line-height:1.5;
+    background:#FBF6E9;
+    border-left:3px solid var(--gold);
+    padding:10px 14px;
+    border-radius:6px;
+    margin-top:16px;
+  }
+
+  /* TIMELINE */
+  .dates{background:var(--royal-deep);}
+  .dates .section-label{color:var(--gold-bright);}
+  .dates h2.section-title{color:#fff;}
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{
+    content:"";
+    position:absolute;left:6px;top:6px;bottom:6px;
+    width:2px;
+    background:rgba(232,199,102,0.35);
+  }
+  .tl-item{position:relative;padding-bottom:24px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{
+    position:absolute;left:-26px;top:2px;
+    width:14px;height:14px;border-radius:50%;
+    background:var(--gold-bright);
+    border:3px solid var(--royal-deep);
+    box-shadow:0 0 0 2px rgba(232,199,102,0.4);
+  }
+  .tl-date{
+    font-family:'DM Mono',monospace;
+    font-size:11.5px;
+    color:var(--gold-bright);
+    letter-spacing:.04em;
+    display:block;
+    margin-bottom:3px;
+  }
+  .tl-title{color:#fff;font-weight:700;font-size:15px;margin:0 0 3px;}
+  .tl-loc{color:rgba(255,255,255,0.65);font-size:12.5px;margin:0;}
+
+  /* SPOTLIGHT CALLOUT */
+  .callout{background:#fff;border-bottom:1px solid var(--line);}
+  .callout-box{
+    border:1.5px dashed var(--gold);
+    border-radius:14px;
+    padding:22px;
+    text-align:center;
+  }
+  .callout-box h3{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:19px;
+    margin:0 0 8px;
+    color:var(--royal);
+  }
+  .callout-box p{font-size:13.8px;color:#4a5064;line-height:1.55;margin:0 0 14px;}
+
+  /* FOOTER */
+  footer{
+    background:var(--ink);
+    padding:30px 28px 40px;
+    text-align:center;
+  }
+  footer .sig{
+    font-family:'Anton',sans-serif;
+    color:var(--gold-bright);
+    font-size:15px;
+    letter-spacing:.03em;
+    margin-bottom:4px;
+  }
+  footer p{color:rgba(255,255,255,0.55);font-size:12px;line-height:1.6;margin:2px 0;}
+  footer a{color:var(--gold-bright);text-decoration:none;}
+
+  @media (max-width:480px){
+    .masthead h1{font-size:30px;}
+    .masthead-photo-wrap{width:64px;height:64px;right:20px;top:20px;}
+    .masthead-photo{width:64px;height:64px;}
+    .masthead-photo span{font-size:7.5px;}
+    section{padding:28px 20px;}
+    .photo-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="masthead-photo-wrap">
+      <div class="masthead-photo"><span>ADD<br>HEADSHOT</span></div>
+    </div>
+    <p class="eyebrow">Sigma Gamma Rho Sorority, Inc. — Western Region</p>
+    <h1>WR Undergrad<br><span>Connect</span></h1>
+    <p class="tag">Your region. Your chapters. Your voice. A direct line between you and your Undergraduate Chapter Coordinator.</p>
+    <span class="issue-tab">ISSUE 01 · AUGUST 2026</span>
+  </div>
+
+  <section class="intro">
+    <p class="section-label">Meet Your Coordinator</p>
+    <h2 class="section-title">Dear Sorors<br>and Advisors,</h2>
+    <p>Greetings from the Western Region! I am honored to introduce myself as your new Undergraduate Chapter Coordinator, and I wanted to reach out personally before we get into the business of the next two years together.</p>
+
+    <div class="photo-block tall">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+      <span><a href="#" style="display:block; line-height:0; align:center">
+    <img src="https://i.postimg.cc/zD0vS4kR/UG-Welcome-Back-Card.png"
+         alt="Dr. Minina Johnson Welcome Back" class="nav-logo-img"></a></span>
+    </div>
+
+    <p>My name is Dr. Minina Johnson (Dr. Jaye). Some of you may know me from my recent service as your Western Region Chief of Staff during the last biennium under Regional Syntaktes Andrea R. Magee Davis. For those I have not yet had the pleasure of meeting, here is a bit about my Sigma journey and my life outside of it.</p>
+    <p>I came into Sigma Gamma Rho Sorority, Inc. in Spring 2016 through Delta Pi Sigma Chapter in Macon, GA, as a proud Tr3. I am a Life Member, #2417, and I currently hold membership with Iota Beta Sigma Chapter in Silicon Valley, CA. I live in Vail, AZ, and by profession I hold a doctorate in business administration with a specialization in program management, along with over 20 years of experience leading large-scale programs and building operating systems that help organizations run smoothly. I bring that same lens of structure, care, and follow-through to this role.</p>
+
+    <div class="chips">
+      <span class="chip">Spring 2016 <b>·</b> Delta Pi Sigma, Macon GA</span>
+      <span class="chip"><b>Tr3</b></span>
+      <span class="chip">Life Member <b>#2417</b></span>
+      <span class="chip">Iota Beta Sigma <b>·</b> Silicon Valley, CA</span>
+    </div>
+
+    <p style="margin-top:16px;">My goal over the next two years is simple: to make sure every undergraduate chapter in the Western Region feels supported, informed, and set up to thrive. That starts with me getting to know you, not the other way around.</p>
+    <p>Because I am new to many of you, I want to begin by listening rather than dictating. Over the coming weeks, you will receive a short survey to help me understand your chapter's strengths and needs, an invitation to virtual office hours where you can meet me directly, and this newsletter, on repeat.</p>
+    <p style="margin-bottom:0;">Please do not hesitate to reach out with any immediate needs, questions, or concerns. I am here to serve you, and I take that responsibility seriously.</p>
+  </section>
+
+  <section class="actions">
+    <p class="section-label">Do This First</p>
+    <h2 class="section-title">3 Action Items</h2>
+    <div class="patch-list">
+
+      <div class="patch">
+        <div class="patch-num">01</div>
+        <div class="patch-body">
+          <h3>2026–2028 WR Officer Form</h3>
+          <span class="patch-meta">REQUIRED · ALL CHAPTERS</span>
+          <p>Make sure your current officer roster is on file with the region. This is the foundation for how we reach the right people all biennium.</p>
+          <a class="btn" href="#">Complete Officer Form</a>
+        </div>
+      </div>
+
+      <div class="patch">
+        <div class="patch-num">02</div>
+        <div class="patch-body">
+          <h3>Annual Certificate of Insurance (COI)</h3>
+          <span class="patch-meta">REQUIRED · COLLEGE/UNIVERSITY COMPLIANCE</span>
+          <p>Your annual COI keeps your chapter compliant and recognized as an active organization on your campus.</p>
+          <a class="btn" href="https://forms.cloud.microsoft/r/RXCFjJR9cg" target="_blank" rel="noopener">Request Annual COI</a>
+          <div class="note">This form is for annual college/university compliance only. Meetings, special events, vendor contracts, and facility rentals need a separate Event COI Request instead.</div>
+        </div>
+      </div>
+
+      <div class="patch">
+        <div class="patch-num">03</div>
+        <div class="patch-body">
+          <h3>"Get to Know Your Chapter" Survey</h3>
+          <span class="patch-meta">5–10 MIN · HELPS ME SUPPORT YOU BETTER</span>
+          <p>One chapter, one response. Tell me what's working, what you need, and how you'd like to hear from me going forward.</p>
+          <a class="btn ghost" href="#">Take the Survey</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-block wide" style="margin-top:22px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+      <span>PHOTO: WESTERN REGION CHAPTERS COLLAGE</span>
+    </div>
+  </section>
+
+  <section class="dates">
+    <p class="section-label">Mark Your Calendar</p>
+    <h2 class="section-title">Key Dates</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">AUG 17, 2026</span>
+        <p class="tl-title">Advisor Touchbase</p>
+        <p class="tl-loc">Virtual</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">EARLY OCT 2026</span>
+        <p class="tl-title">UCDF Grant Awards Disbursed</p>
+        <p class="tl-loc">Undergraduate Chapter Development Fund</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">OCT 17, 2026</span>
+        <p class="tl-title">WR Mighty Leadership Summit</p>
+        <p class="tl-loc">Virtual via RingCentral</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">JAN 2027</span>
+        <p class="tl-title">WR Leadership Retreat</p>
+        <p class="tl-loc">Las Vegas, NV</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">FEB 25–28, 2027</span>
+        <p class="tl-title">AFLV West</p>
+        <p class="tl-loc">Anaheim, CA</p>
+      </div>
+
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-block on-dark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span>PHOTO: MIGHTY LEADERSHIP SUMMIT 2025</span>
+      </div>
+      <div class="photo-block on-dark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span>PHOTO: LAS VEGAS RETREAT VENUE</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="callout">
+    <p class="section-label">Coming Next Issue</p>
+    <h2 class="section-title">Chapter Spotlight</h2>
+    <div class="callout-box">
+      <h3>Want your chapter featured?</h3>
+      <p>Send me one win from this semester: a service project, a recruitment moment, a member accomplishment. Issue 02 will spotlight two chapters.</p>
+      <div class="photo-block tall" style="margin:14px 0;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span>PHOTO: YOUR CHAPTER HERE</span>
+      </div>
+      <a class="btn" href="#">Submit Your Chapter's Win</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="masthead-photo-wrap" style="position:static;width:64px;height:64px;margin:0 auto 16px;">
+      <div class="masthead-photo" style="width:64px;height:64px;"><span style="font-size:8px;">CREST /<br>LOGO</span></div>
+    </div>
+    <p class="sig">DR. MININA JOHNSON, DBA, PMP</p>
+    <p>Western Region Undergraduate Chapter Coordinator</p>
+    <p>Sigma Gamma Rho Sorority, Inc.</p>
+    <p style="margin-top:14px;">Reply anytime, I read every email. · Next issue: September 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>
