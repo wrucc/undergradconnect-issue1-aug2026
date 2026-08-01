@@ -90,6 +90,35 @@
     border-color:rgba(232,199,102,0.5);
   }
   .photo-block.on-dark span{color:rgba(255,255,255,0.55);}
+  .photo-block img{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:10px;
+    display:none;
+  }
+  .photo-block.has-image{
+    border-style:solid;
+    padding:0;
+    background:none;
+    overflow:hidden;
+  }
+  .photo-block.has-image img{display:block;}
+  .photo-block.has-image svg,
+  .photo-block.has-image span{display:none;}
+
+  .masthead-photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:none;
+  }
+  .masthead-photo.has-image{
+    border-style:solid;
+    background:none;
+  }
+  .masthead-photo.has-image img{display:block;}
+  .masthead-photo.has-image span{display:none;}
+
   .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
   .photo-grid .photo-block{margin:0;aspect-ratio:1/1;padding:16px;}
   .eyebrow{
@@ -315,9 +344,10 @@
 
   <div class="masthead">
     <div class="masthead-photo-wrap">
-      <div class="masthead-photo"><span><a href="#" style="display:block; line-height:0; align:center">
-    <img src="https://i.postimg.cc/xCjJ9QRR/Screenshot-2026-08-01-at-10-40-54-AM.png"
-         alt="WESigmaTogether" class="nav-logo-img"></a></span></div>
+      <div class="masthead-photo" data-img="headshotCircle">
+        <img alt="Dr. Jaye headshot">
+        <span>ADD<br>HEADSHOT</span>
+      </div>
     </div>
     <p class="eyebrow">Sigma Gamma Rho Sorority, Inc. — Western Region</p>
     <h1>WR Undergrad<br><span>Connect</span></h1>
@@ -330,11 +360,10 @@
     <h2 class="section-title">Dear Sorors<br>and Advisors,</h2>
     <p>Greetings from the Western Region! I am honored to introduce myself as your new Undergraduate Chapter Coordinator, and I wanted to reach out personally before we get into the business of the next two years together.</p>
 
-    <div class="photo-block tall">
+    <div class="photo-block tall" data-img="headshotIntro">
+      <img alt="Dr. Jaye photo">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-      <span><a href="#" style="display:block; line-height:0; align:center">
-    <img src="https://i.postimg.cc/zD0vS4kR/UG-Welcome-Back-Card.png"
-         alt="Dr. Minina Johnson Welcome Back" class="nav-logo-img"></a></span>
+      <span>PHOTO: DR. JAYE<br>ADD HEADSHOT OR CANDID</span>
     </div>
 
     <p>My name is Dr. Minina Johnson (Dr. Jaye). Some of you may know me from my recent service as your Western Region Chief of Staff during the last biennium under Regional Syntaktes Andrea R. Magee Davis. For those I have not yet had the pleasure of meeting, here is a bit about my Sigma journey and my life outside of it.</p>
@@ -390,7 +419,8 @@
 
     </div>
 
-    <div class="photo-block wide" style="margin-top:22px;">
+    <div class="photo-block wide" data-img="chaptersCollage" style="margin-top:22px;">
+      <img alt="Western Region chapters collage">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
       <span>PHOTO: WESTERN REGION CHAPTERS COLLAGE</span>
     </div>
@@ -439,11 +469,13 @@
     </div>
 
     <div class="photo-grid">
-      <div class="photo-block on-dark">
+      <div class="photo-block on-dark" data-img="summitPhoto">
+        <img alt="Mighty Leadership Summit">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
         <span>PHOTO: MIGHTY LEADERSHIP SUMMIT 2025</span>
       </div>
-      <div class="photo-block on-dark">
+      <div class="photo-block on-dark" data-img="retreatPhoto">
+        <img alt="Las Vegas Retreat venue">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
         <span>PHOTO: LAS VEGAS RETREAT VENUE</span>
       </div>
@@ -456,7 +488,8 @@
     <div class="callout-box">
       <h3>Want your chapter featured?</h3>
       <p>Send me one win from this semester: a service project, a recruitment moment, a member accomplishment. Issue 02 will spotlight two chapters.</p>
-      <div class="photo-block tall" style="margin:14px 0;">
+      <div class="photo-block tall" data-img="chapterSpotlight" style="margin:14px 0;">
+        <img alt="Chapter spotlight photo">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
         <span>PHOTO: YOUR CHAPTER HERE</span>
       </div>
@@ -466,7 +499,10 @@
 
   <footer>
     <div class="masthead-photo-wrap" style="position:static;width:64px;height:64px;margin:0 auto 16px;">
-      <div class="masthead-photo" style="width:64px;height:64px;"><span style="font-size:8px;">CREST /<br>LOGO</span></div>
+      <div class="masthead-photo" data-img="footerCrest" style="width:64px;height:64px;">
+        <img alt="Chapter crest or logo">
+        <span style="font-size:8px;">CREST /<br>LOGO</span>
+      </div>
     </div>
     <p class="sig">DR. MININA JOHNSON, DBA, PMP</p>
     <p>Western Region Undergraduate Chapter Coordinator</p>
@@ -475,5 +511,35 @@
   </footer>
 
 </div>
+
+<script>
+  /* ============================================================
+     PASTE YOUR IMAGE LINKS BELOW — one central spot, no hunting.
+     Leave any value as "" to keep that placeholder box as-is.
+     Save the file after editing and reopen to see the images.
+     ============================================================ */
+  const IMAGES = {
+    headshotCircle:   "https://postimg.cc/Y4VqxJTG",  // Header circle headshot (top right)
+    headshotIntro:    "https://postimg.cc/ppFVBWHv",  // "Meet Your Coordinator" photo
+    chaptersCollage:  "",  // Banner: WR chapters collage
+    summitPhoto:      "",  // Mighty Leadership Summit photo
+    retreatPhoto:     "",  // Las Vegas Retreat venue photo
+    chapterSpotlight: "",  // Chapter spotlight photo
+    footerCrest:      ""   // Footer crest / logo
+  };
+
+  Object.keys(IMAGES).forEach(function (key) {
+    const url = IMAGES[key];
+    if (!url) return;
+    document.querySelectorAll('[data-img="' + key + '"]').forEach(function (box) {
+      const img = box.querySelector('img');
+      if (img) {
+        img.src = url;
+        box.classList.add('has-image');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
