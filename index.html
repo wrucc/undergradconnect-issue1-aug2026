@@ -1,515 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
 <title>WR Undergrad Connect — Issue 01</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<template id="__bundler_thumbnail" data-bg-color="#003DA5">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#003DA5"></rect>
+<text x="600" y="380" font-family="Arial Black, Arial, sans-serif" font-size="140" fill="#ffffff" text-anchor="middle" font-weight="900">WR</text>
+<text x="600" y="500" font-family="Arial Black, Arial, sans-serif" font-size="90" fill="#E8C766" text-anchor="middle" font-weight="900">CONNECT</text>
+</svg>
+</template>
+<!--[if mso]>
+<noscript>
+<xml>
+<o:OfficeDocumentSettings>
+<o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings>
+</xml>
+</noscript>
 <style>
-  :root{
-    --royal:#003DA5;
-    --royal-deep:#00204F;
-    --gold:#C9A84C;
-    --gold-bright:#E8C766;
-    --cream:#FAF7EF;
-    --ink:#003399;
-    --line: rgba(0,61,165,0.14);
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'DM Sans', sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:640px;margin:0 auto;}
-
-  /* MASTHEAD */
-  .masthead{
-    background:linear-gradient(160deg, var(--royal) 0%, var(--royal-deep) 100%);
-    padding:44px 28px 36px;
-    position:relative;
-    overflow:hidden;
-  }
-  .masthead-photo-wrap{
-    position:absolute;
-    right:24px; top:24px;
-    width:104px; height:104px;
-    z-index:2;
-  }
-  .masthead-photo-wrap::before{
-    content:"";
-    position:absolute;
-    inset:-9px;
-    border-radius:50%;
-    border:1.5px solid rgba(232,199,102,0.35);
-  }
-  .masthead-photo{
-    width:104px; height:104px;
-    border-radius:50%;
-    border:2px dashed rgba(232,199,102,0.75);
-    background:rgba(255,255,255,0.06);
-    display:flex; align-items:center; justify-content:center;
-    text-align:center;
-    overflow:hidden;
-  }
-  .masthead-photo span{
-    font-family:'DM Mono',monospace;
-    font-size:9px;
-    letter-spacing:.05em;
-    color:rgba(255,255,255,0.6);
-    padding:0 10px;
-    line-height:1.35;
-  }
-
-  /* REUSABLE PHOTO BLOCKS */
-  .photo-block{
-    border:2px dashed var(--gold);
-    border-radius:14px;
-    background:#FBF6E9;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center;
-    gap:8px;
-    padding:30px 16px;
-    margin:18px 0;
-  }
-  .photo-block svg{opacity:.5;}
-  .photo-block span{
-    font-family:'DM Mono',monospace;
-    font-size:11px;
-    letter-spacing:.03em;
-    color:#8a7440;
-    line-height:1.4;
-  }
-  .photo-block.tall{aspect-ratio:4/3;}
-  .photo-block.wide{aspect-ratio:16/7;margin:0;}
-  .photo-block.on-dark{
-    background:rgba(255,255,255,0.05);
-    border-color:rgba(232,199,102,0.5);
-  }
-  .photo-block.on-dark span{color:rgba(255,255,255,0.55);}
-  .photo-block img{
-    width:100%; height:100%;
-    object-fit:cover;
-    border-radius:10px;
-    display:none;
-  }
-  .photo-block.has-image{
-    border-style:solid;
-    padding:0;
-    background:none;
-    overflow:hidden;
-  }
-  .photo-block.has-image img{display:block;}
-  .photo-block.has-image svg,
-  .photo-block.has-image span{display:none;}
-
-  .masthead-photo img{
-    width:100%; height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:none;
-  }
-  .masthead-photo.has-image{
-    border-style:solid;
-    background:none;
-  }
-  .masthead-photo.has-image img{display:block;}
-  .masthead-photo.has-image span{display:none;}
-
-  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
-  .photo-grid .photo-block{margin:0;aspect-ratio:1/1;padding:16px;}
-  .eyebrow{
-    font-family:'DM Mono', monospace;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    font-size:12px;
-    color:var(--gold-bright);
-    margin:0 0 10px;
-  }
-  .masthead h1{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    font-size:44px;
-    line-height:0.95;
-    letter-spacing:.01em;
-    color:#fff;
-    margin:0 0 14px;
-    text-transform:uppercase;
-  }
-  .masthead h1 span{color:var(--gold-bright);}
-  .masthead p.tag{
-    color:rgba(255,255,255,0.78);
-    font-size:15px;
-    margin:0;
-    max-width:420px;
-  }
-  .issue-tab{
-    display:inline-block;
-    margin-top:22px;
-    padding:6px 14px;
-    border:1px solid rgba(232,199,102,0.5);
-    border-radius:100px;
-    font-family:'DM Mono',monospace;
-    font-size:11px;
-    letter-spacing:.08em;
-    color:var(--gold-bright);
-  }
-
-  /* SECTION SHELLS */
-  section{padding:34px 28px;}
-  .section-label{
-    font-family:'DM Mono', monospace;
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--royal);
-    margin:0 0 6px;
-  }
-  h2.section-title{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:26px;
-    letter-spacing:.01em;
-    margin:0 0 18px;
-    color:var(--ink);
-  }
-
-  /* INTRO */
-  .intro{background:#fff; border-bottom:1px solid var(--line);}
-  .intro p{font-size:15px;line-height:1.65;margin:0 0 14px;color:#2a3040;}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-  .chip{
-    font-family:'DM Mono',monospace;
-    font-size:11.5px;
-    padding:7px 12px;
-    border-radius:100px;
-    background:var(--cream);
-    border:1px solid var(--line);
-    color:var(--royal-deep);
-    white-space:nowrap;
-  }
-  .chip b{color:var(--gold);}
-
-  /* ACTION ITEMS - PATCH STYLE */
-  .actions{background:var(--cream);}
-  .patch-list{display:flex;flex-direction:column;gap:14px;}
-  .patch{
-    display:flex;
-    gap:16px;
-    align-items:flex-start;
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:18px;
-    position:relative;
-  }
-  .patch-num{
-    flex:0 0 auto;
-    width:40px;height:40px;
-    border-radius:50%;
-    border:2px solid var(--gold);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Anton',sans-serif;
-    color:var(--royal);
-    font-size:16px;
-    background:linear-gradient(180deg,#fff, #FBF6E9);
-  }
-  .patch-body h3{
-    margin:0 0 6px;
-    font-size:16.5px;
-    font-weight:700;
-    color:var(--ink);
-  }
-  .patch-body p{
-    margin:0 0 10px;
-    font-size:13.8px;
-    line-height:1.55;
-    color:#4a5064;
-  }
-  .patch-meta{
-    font-family:'DM Mono',monospace;
-    font-size:11px;
-    color:var(--royal);
-    letter-spacing:.03em;
-    margin-bottom:10px;
-    display:block;
-  }
-  .btn{
-    display:inline-block;
-    background:var(--royal);
-    color:#fff;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
-    padding:9px 16px;
-    border-radius:8px;
-  }
-  .btn.ghost{
-    background:transparent;
-    border:1.5px solid var(--royal);
-    color:var(--royal);
-  }
-  .note{
-    font-size:12px;
-    color:#6a7086;
-    line-height:1.5;
-    background:#FBF6E9;
-    border-left:3px solid var(--gold);
-    padding:10px 14px;
-    border-radius:6px;
-    margin-top:16px;
-  }
-
-  /* TIMELINE */
-  .dates{background:var(--royal-deep);}
-  .dates .section-label{color:var(--gold-bright);}
-  .dates h2.section-title{color:#fff;}
-  .timeline{position:relative;padding-left:26px;}
-  .timeline::before{
-    content:"";
-    position:absolute;left:6px;top:6px;bottom:6px;
-    width:2px;
-    background:rgba(232,199,102,0.35);
-  }
-  .tl-item{position:relative;padding-bottom:24px;}
-  .tl-item:last-child{padding-bottom:0;}
-  .tl-dot{
-    position:absolute;left:-26px;top:2px;
-    width:14px;height:14px;border-radius:50%;
-    background:var(--gold-bright);
-    border:3px solid var(--royal-deep);
-    box-shadow:0 0 0 2px rgba(232,199,102,0.4);
-  }
-  .tl-date{
-    font-family:'DM Mono',monospace;
-    font-size:11.5px;
-    color:var(--gold-bright);
-    letter-spacing:.04em;
-    display:block;
-    margin-bottom:3px;
-  }
-  .tl-title{color:#fff;font-weight:700;font-size:15px;margin:0 0 3px;}
-  .tl-loc{color:rgba(255,255,255,0.65);font-size:12.5px;margin:0;}
-
-  /* SPOTLIGHT CALLOUT */
-  .callout{background:#fff;border-bottom:1px solid var(--line);}
-  .callout-box{
-    border:1.5px dashed var(--gold);
-    border-radius:14px;
-    padding:22px;
-    text-align:center;
-  }
-  .callout-box h3{
-    font-family:'Anton',sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:19px;
-    margin:0 0 8px;
-    color:var(--royal);
-  }
-  .callout-box p{font-size:13.8px;color:#4a5064;line-height:1.55;margin:0 0 14px;}
-
-  /* FOOTER */
-  footer{
-    background:var(--ink);
-    padding:30px 28px 40px;
-    text-align:center;
-  }
-  footer .sig{
-    font-family:'Anton',sans-serif;
-    color:var(--gold-bright);
-    font-size:15px;
-    letter-spacing:.03em;
-    margin-bottom:4px;
-  }
-  footer p{color:rgba(255,255,255,0.55);font-size:12px;line-height:1.6;margin:2px 0;}
-  footer a{color:var(--gold-bright);text-decoration:none;}
-
+table {border-collapse:collapse;}
+td,th,div,p,a,h1,h2,h3 {font-family:Arial, sans-serif;}
+</style>
+<![endif]-->
+<style>
+  body,table,td,a{ -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+  table,td{ mso-table-lspace:0pt; mso-table-rspace:0pt; }
+  img{ -ms-interpolation-mode:bicubic; border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
+  body{ margin:0; padding:0; width:100%!important; }
+  a{ color:#003DA5; }
   @media (max-width:480px){
-    .masthead h1{font-size:30px;}
-    .masthead-photo-wrap{width:64px;height:64px;right:20px;top:20px;}
-    .masthead-photo{width:64px;height:64px;}
-    .masthead-photo span{font-size:7.5px;}
-    section{padding:28px 20px;}
-    .photo-grid{grid-template-columns:1fr;}
+    .wr-full{width:100%!important;}
+    .wr-h1{font-size:28px!important;}
+    .wr-pad{padding-left:20px!important;padding-right:20px!important;}
+    .wr-stack{display:block!important;width:100%!important;}
+  }
+  @media (prefers-color-scheme: dark){
+    .wr-bg-cream{ background:#FAF7EF !important; }
   }
 </style>
-</head>
-<body>
-<div class="wrap">
 
-  <div class="masthead">
-    <div class="masthead-photo-wrap">
-      <div class="masthead-photo" data-img="headshotCircle">
-        <img src="https://i.postimg.cc/Y4VqxJTG/Screenshot-2026-08-01-at-10-40-54-AM.png" target='_blank' alt="WESigmaTogether Logo">
-      </div>
-    </div>
-    <p class="eyebrow">Sigma Gamma Rho Sorority, Inc. — Western Region</p>
-    <h1>WR Undergrad<br><span>Connect</span></h1>
-    <p class="tag">Your region. Your chapters. Your voice. A direct line between you and your Undergraduate Chapter Coordinator.</p>
-    <span class="issue-tab">ISSUE 01 · AUGUST 2026</span>
-  </div>
 
-  <section class="intro">
-    <p class="section-label">Meet Your Undergraduate Chapter Coordinator</p>
-    <h2 class="section-title">Hello Western Region Sorors and Advisors!</h2>
-    <p>I am honored to introduce myself as your new Undergraduate Chapter Coordinator, and I wanted to reach out personally before we get into the business of the next two years together.</p>
-
-    <div class="photo-block tall" data-img="headshotIntro">
-      <img src="https://i.postimg.cc/5jxbCBPv/Screenshot-2026-08-01-at-11-19-30-AM.png" target='_blank' alt="Dr. Jaye Welcome Back">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-    </div>
-
-    <p>My name is Dr. Minina Johnson, but please call me Dr. Jaye. Some of you may know me from my recent service as your Western Region Chief of Staff during the last biennium under Regional Syntaktes Andrea R. Magee Davis. For those I have not yet had the pleasure of meeting, here is a bit about my Sigma journey and my life outside of it.</p>
-    <p>I came into Sigma Gamma Rho Sorority, Inc. in Spring 2016 through Delta Pi Sigma Chapter in Macon, GA, as a proud Tr3. I am a Life Member, #2417, and I currently hold membership with Iota Beta Sigma Chapter in Silicon Valley, CA. I live in Vail, AZ, and by profession I hold a doctorate in business administration with a specialization in program management, along with over 20 years of experience leading large-scale programs and building operating systems that help organizations run smoothly. I bring that same lens of structure, care, and follow-through to this role.</p>
-
-    <div class="chips">
-      <span class="chip">Spring 2016 <b>·</b> Delta Pi Sigma, Macon GA</span>
-      <span class="chip"><b>Tr3 Club</b></span>
-      <span class="chip">Life Member <b>#2417</b></span>
-      <span class="chip"><b>Legacy</b></span>
-      <span class="chip">Iota Beta Sigma <b>·</b> Silicon Valley, CA</span>
-    </div>
-
-    <p style="margin-top:16px;">My goal over the next two years is simple: to make sure every undergraduate chapter in the Western Region feels supported, informed, and set up to thrive. That starts with me getting to know you, not the other way around.</p>
-    <p>Because I am new to many of you, I want to begin by listening rather than dictating. Over the coming weeks, you will receive a short survey to help me understand your chapter's strengths and needs, an invitation to virtual office hours where you can meet me directly, and this newsletter, on repeat.</p>
-    <p style="margin-bottom:0;">Please do not hesitate to reach out with any immediate needs, questions, or concerns. I am here to serve you, and I take that responsibility seriously.</p>
-  </section>
-
-  <section class="actions">
-    <p class="section-label">Do This First</p>
-    <h2 class="section-title">3 Action Items</h2>
-    <div class="patch-list">
-
-      <div class="patch">
-        <div class="patch-num">01</div>
-        <div class="patch-body">
-          <h3>2026–2028 WR Officer Form</h3>
-          <span class="patch-meta">REQUIRED · ALL CHAPTERS</span>
-          <p>Make sure your current officer roster is on file with the region. This is the foundation for how we reach the right people all biennium.</p>
-          <a class="btn" href="https://docs.google.com/spreadsheets/d/11Pfc0rLBVizILVv6MzyuN_JCcGinjEspUXgdoCfhuZg/edit?usp=sharing">Complete Officer Form</a>
-        </div>
-      </div>
-
-       <div class="patch">
-        <div class="patch-num">03</div>
-        <div class="patch-body">
-          <h3>"Get to Know Your Chapter" Survey</h3>
-          <span class="patch-meta">5–10 MIN · HELPS ME SUPPORT YOU BETTER</span>
-          <p>One chapter, one response. Tell me what's working, what you need, and how you'd like to hear from me going forward.</p>
-          <a class="btn ghost" href="#">Take the Survey</a>
-        </div>
-      </div>
-      
-      <div class="patch">
-        <div class="patch-num">02</div>
-        <div class="patch-body">
-          <h3>Annual Certificate of Insurance (COI)</h3>
-          <span class="patch-meta">REQUIRED · COLLEGE/UNIVERSITY COMPLIANCE</span>
-          <p>Your annual COI keeps your chapter compliant and recognized as an active organization on your campus.</p>
-          <a class="btn" href="https://forms.cloud.microsoft/r/RXCFjJR9cg" target="_blank" rel="noopener">Request Annual COI</a>
-          <div class="note">This form is for annual college/university compliance only. Meetings, special events, vendor contracts, and facility rentals need a separate Event COI Request instead.</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="photo-block wide" data-img="chaptersCollage" style="margin-top:22px;">
-      <img src="PASTE-IMAGE-LINK-HERE" alt="Western Region chapters collage" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-      <span>PHOTO: WESTERN REGION CHAPTERS COLLAGE</span>
-    </div>
-  </section>
-
-  <section class="dates">
-    <p class="section-label">Mark Your Calendar</p>
-    <h2 class="section-title">Key Dates</h2>
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">AUG 17, 2026</span>
-        <p class="tl-title">Advisor Touchbase</p>
-        <p class="tl-loc">Virtual</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">EARLY OCT 2026</span>
-        <p class="tl-title">UCDF Grant Awards Disbursed</p>
-        <p class="tl-loc">Undergraduate Chapter Development Fund</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">OCT 17, 2026</span>
-        <p class="tl-title">WR Mighty Leadership Summit</p>
-        <p class="tl-loc">Virtual via RingCentral</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">JAN 2027</span>
-        <p class="tl-title">WR Leadership Retreat</p>
-        <p class="tl-loc">Las Vegas, NV</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">FEB 25–28, 2027</span>
-        <p class="tl-title">AFLV West</p>
-        <p class="tl-loc">Anaheim, CA</p>
-      </div>
-
-    </div>
-
-    <div class="photo-grid">
-      <div class="photo-block on-dark" data-img="summitPhoto">
-        <img src="PASTE-IMAGE-LINK-HERE" alt="Mighty Leadership Summit" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        <span>PHOTO: MIGHTY LEADERSHIP SUMMIT 2025</span>
-      </div>
-      <div class="photo-block on-dark" data-img="retreatPhoto">
-        <img src="PASTE-IMAGE-LINK-HERE" alt="Las Vegas Retreat venue" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8C766" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        <span>PHOTO: LAS VEGAS RETREAT VENUE</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="callout">
-    <p class="section-label">Coming Next Issue</p>
-    <h2 class="section-title">Chapter Spotlight</h2>
-    <div class="callout-box">
-      <h3>Want your chapter featured?</h3>
-      <p>Send me one win from this semester: a service project, a recruitment moment, a member accomplishment. Issue 02 will spotlight two chapters.</p>
-      <div class="photo-block tall" data-img="chapterSpotlight" style="margin:14px 0;">
-        <img src="PASTE-IMAGE-LINK-HERE" alt="Chapter spotlight photo" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        <span>PHOTO: YOUR CHAPTER HERE</span>
-      </div>
-      <a class="btn" href="#">Submit Your Chapter's Win</a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="masthead-photo-wrap" style="position:static;width:64px;height:64px;margin:0 auto 16px;">
-      <div class="masthead-photo" data-img="footerCrest" style="width:64px;height:64px;">
-        <img src="PASTE-IMAGE-LINK-HERE" alt="Chapter crest or logo" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
-        <span style="font-size:8px;">CREST /<br>LOGO</span>
-      </div>
-    </div>
-    <p class="sig">DR. MININA JOHNSON, DBA, PMP</p>
-    <p>Western Region Undergraduate Chapter Coordinator</p>
-    <p>Sigma Gamma Rho Sorority, Inc.</p>
-    <p style="margin-top:14px;">Reply anytime, I read every email. · Next issue: September 2026</p>
-  </footer>
-
+<div style="display:none;font-size:1px;color:#FAF7EF;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+Meet your new Western Region Undergraduate Chapter Coordinator, Dr. Jaye — plus 3 action items and key dates for the biennium.
 </div>
 
-</body>
-</html>
+<center style="width:100%;background:#FAF7EF;position:absolute;left:2px;top:-35px;">
+<!--[if mso]>
+<table role="presentation" width="600" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td>
+<![endif]-->
+<table role="presentation" class="wr-full" width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;margin:0 auto;background:#FAF7EF;">
+
+<!-- MASTHEAD -->
+<tbody><tr>
+<td class="wr-pad" style="background:linear-gradient(160deg, #1800ADEB, #00204F 100%);padding:44px 28px 36px 28px;" bgcolor="#003DA5">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td valign="top" style="padding-right:16px;">
+<p style="margin:0 0 10px 0;font-family:Arial Black, Arial, sans-serif;letter-spacing:2px;text-transform:uppercase;font-size:9px;color:#b8860b;">Sigma Gamma Rho Sorority, Inc. — Western Region</p>
+<h1 class="wr-h1" style="margin:0 0 14px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;font-size:40px;line-height:0.98;letter-spacing:.01em;color:#ffffff;text-transform:uppercase;">WR Undergrad<br><span style="color:#b8860b;">Connect</span></h1>
+<p style="margin:0;font-family:DM Sans;font-size:15px;color:rgba(255,255,255,0.78);max-width:380px;font-style:italic;">Your region. Your chapters. Your voice.<br>And your direct line between you and your UCC.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:22px;">
+<tbody><tr><td style="border:1px solid rgba(232,199,102,0.5);border-radius:100px;padding:6px 14px;font-family:Arial Black, Arial, sans-serif;font-size:11px;letter-spacing:1.5px;color:#b8860b;">ISSUE 01 · AUGUST 2026</td></tr>
+</tbody></table>
+</td>
+<td valign="top" width="104" style="width:104px;">
+<img src="./screenshot-2026-08-01-at-10-40-54-am-msaxbghb-y2le.png" width="104" height="104" alt="WESigmaTogether logo" style="display:block;width:144px;height:149px;border-radius:50%;object-fit:contain;" jslog="138226; u014N:xr6bB; 53:WzAsMF0.">
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+
+<!-- INTRO -->
+<tr>
+<td class="wr-pad" style="background:#ffffff;padding:34px 28px;border-bottom:1px solid rgba(0,61,165,0.14);text-align:center;" bgcolor="#ffffff">
+<p style="margin:0 0 6px 0;font-family:Arial Black, Arial, sans-serif;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#003DA5;">Meet Your Undergraduate Chapter Coordinator<br><br></p>
+
+<!-- PHOTO BLOCK: tall -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="border:2px solid #C9A84C;border-radius:14px;overflow:hidden;width:549px;height:376px;">
+<img src="./screenshot-2026-08-01-at-11-19-30-am-msawbbq8-6u0g.png" width="544" alt="Dr. Jaye welcome back" style="display:block;max-width:544px;height:100%;width:100%;object-fit:cover;" jslog="138226; u014N:xr6bB; 53:WzAsMF0.">
+</td></tr>
+</tbody></table>
+
+<h2 style="margin:0 0 18px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:20px;color:#A87605;text-align:center;">WR UNDERGRADUATES AND ADVISORS!</h2>
+<p style="margin:0 0 14px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.65;color:#003399;text-align:center;"><b style="font-family:Arial Black;text-align:center;width:100%;display:inline-block;height:100%;font-size:17px;">Welcome to the 2026-2027 Sorority Year!<br></b><br><br>A new sorority year means new goals, new connections, and a fresh chance to show up for one another. I am excited for what this year holds for every chapter in the Western Region, and I am glad to be walking into it alongside you.<br><br>I am honored to introduce myself as your new Undergraduate Chapter Coordinator, and I wanted to reach out personally before we get into the business of the next two years together.<br><br>I am Dr. Minina Johnson, but please call me Dr. Jaye. Some of you may know me from my recent service as your Western Region Chief of Staff during the last biennium under Regional Syntaktes Andrea R. Magee Davis. For those I have not yet had the pleasure of meeting, here is a bit about my Sigma journey and my life outside of it.</p>
+
+<!-- CHIPS -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px 0;">
+<tbody><tr>
+<td style="padding:0 8px 8px 0;width:541px;height:22px;text-align:center;"><span style="display:inline-block;font-family:Arial;font-size:11.5px;padding:7px 12px;border-radius:100px;background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);color:#003399;white-space:nowrap;text-align:left;"><b>Spring 2016 <span style="color:#C9A84C;">·</span> Delta Pi Sigma, Macon GA</b></span></td>
+</tr>
+<tr>
+<td style="padding:0 8px 8px 0;text-align:center;"><span style="display:inline-block;font-family:'Courier New',Courier,monospace;font-size:11.5px;padding:7px 12px;border-radius:100px;background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);color:#00204F;white-space:nowrap;"><b style="color:#C9A84C;font-family:Arial;">Tr3 Club</b></span></td>
+</tr>
+<tr>
+<td style="padding:0 8px 8px 0;height:22px;width:219px;text-align:center;"><span style="display:inline-block;font-family:'Courier New',Courier,monospace;font-size:11.5px;padding:7px 12px;border-radius:100px;background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);color:#00204F;white-space:nowrap;"><b style="color:#C9A84C;font-family:Arial;">Legacy</b></span></td>
+</tr>
+<tr>
+<td style="padding:0 8px 8px 0;text-align:center;"><span style="display:inline-block;font-family:Arial;font-size:11.5px;padding:7px 12px;border-radius:100px;background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);color:#003399;white-space:nowrap;"><b>Life Member <span style="color:#C9A84C;">#2417</span></b></span></td>
+</tr>
+<tr>
+<td style="padding:0 8px 8px 0;height:29px;text-align:center;"><span style="display:inline-block;font-family:Arial;font-size:11.5px;padding:7px 12px;border-radius:100px;background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);color:#003399;white-space:nowrap;text-align:center;"><b>Current Member of Iota Beta Sigma <span style="color:#C9A84C;">·</span> Silicon Valley, CA</b></span></td>
+</tr>
+</tbody></table>
+
+<p style="margin:0 0 14px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.65;color:#003399;text-align:center;">I joined Sigma Gamma Rho Sorority, Inc. in Spring 2016 through Delta Pi Sigma Chapter in Macon, GA, as a proud Tr3 🐩. I am Life Member #2417, and I currently hold membership with Iota Beta Sigma Chapter in Silicon Valley, CA. I live in Vail, AZ, and by profession I am the Founder and Strategic Execution Architect of Greater Ambitions LLC. I hold a Doctorate in Business Administration with a specialization in Project Management, along with over 20 years of experience leading large-scale programs and building operating systems that help organizations run smoothly. I bring that same lens of structure, care, and follow-through to this role.<br><br><span style="color:#003399;font-family:&quot;DM Sans&quot;, sans-serif;margin-bottom:14px;">What draws me to this work is simple. Undergraduate chapters are where Sigma Gamma Rho comes alive every single day on campuses and in the small moments of service and sisterhood that do not always make it into a program summary. I do not take for granted that I am stepping into spaces many of you have built and sustained long before I arrived. My job is to support that work, not redirect it.</span></p>
+<p style="margin:16px 0 14px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.65;color:#003399;margin-top:0px;">My goal over the next two years is simple: to make sure every undergraduate chapter in the Western Region feels supported, informed, and set up to thrive. That starts with me getting to know you, not the other way around.</p>
+<p style="margin:0 0 14px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.65;color:#003399;">Because I am new to many of you, I want to begin by listening rather than dictating. Below is a short survey to help me understand your chapter's strengths and needs, invitations to virtual office hours where you can meet me directly, and this newsletter, on repeat.</p>
+<p style="margin:0;font-family:Arial,sans-serif;font-size:15px;line-height:1.65;color:#003399;">Please do not hesitate to reach out with any immediate needs, questions, or concerns. I am here to serve you, and I take that responsibility seriously.<span style="color:#003399;font-family:&quot;DM Sans&quot;, sans-serif;">Here is to a strong start and an even stronger finish, together.</span><br></p>
+<img src="./screenshot-2026-08-01-at-3-36-33-pm-msayt7ua-uvjg.png" alt="screenshot-2026-08-01-at-3-36-33-pm" width="650" height="416" style="max-width:100%;height:174px;display:block;object-fit:contain;width:249px;aspect-ratio:650/416;position:relative;left:150px;" jslog="138226; u014N:xr6bB; 53:WzAsMF0.">
+</td>
+</tr>
+<tr>
+<td align="center" valign="middle" style="border:none;border-radius:14px;background:#FBF6E9;padding:30px 16px;">
+<br>
+</td>
+</tr>
+
+<!-- PROGRAMMING & DEADLINES -->
+<tr>
+<td class="wr-pad" style="background:#ffffff;padding:34px 28px;border-bottom:1px solid rgba(0,61,165,0.14);" bgcolor="#ffffff">
+<p style="margin:0 0 6px 0;font-family:Arial Black;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#003DA5;">GETTING INTO THIS QUARTER...</p>
+<h2 style="margin:0 0 18px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:21.5px;color:#003399;">Q1 PROGRAMMING GUIDE &amp; KEY DEADLINES</h2>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">2026–2027 Undergraduate Programming Guide</h3>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">The purpose of this programming guide is to help our undergraduate chapters take the guesswork out of being impactful without being overextended.</p>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">It also serves as a way to work collectively, as One Sigma across the Region, demonstrating to our respective campuses and networks the impact of Sigma Gamma Rho.</p>
+<p style="margin:0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">Chapters who utilize and leverage the Undergraduate Programming Guide will not only see the benefits, but will also be acknowledged throughout the sorority year with various incentives.</p>
+<p></p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://canva.link/xw7hs52ys0kxu7i" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">2026-2027 Undergraduate Programming Guide</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">Undergraduate Chapter Goal Tracker</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">SENT BY AUG 14, 2026 · PER CHAPTER</span>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">To ensure that every chapter has a mighty impact this sorority year, I am creating an <b><span style="font-weight:normal;">Undergraduate Chapter Goal Tracker</span></b> for each chapter. I will email each individual chapter their goal tracker <b>by August 14, 2026</b>.</p>
+<p style="margin:0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">This progress tracker was designed to help you monitor your progress for the 2026–2027 sorority year. Each month, use this document to assist with planning, reflections, and achievements for the year, and to continue improving as a chapter. Feel free to edit or add additional information as applicable to your chapter.</p>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">Upcoming T.O.R.C.H. Calendar Submission Deadline</h3>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">The finalization of the Fall 2026 TORCH Calendar is forthcoming. However, before submitting your TORCH calendar, you must complete the WR TORCH Compliance form. If your chapter needs to complete an "out-of-wave" TORCH calendar, then you must submit your request PRIOR to submitting the compliance form. To do so, submit the PDF version of the TORCH calendar to <a href="mailto:ucc@westernsgrho.org" style="color:#003DA5;"><b>ucc@westernsgrho.org</b></a>. Out-of-wave requests need to be submitted at least seven (7) days prior to the TORCH calendar submission deadline. Don't forget to start planning for spring intake, too.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://drive.google.com/file/d/1AIfx1xcaHrtH5niCh0I9N_egvjl_Gcgq/view?usp=sharing" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">T.O.R.C.H. Calendar Submission Form</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">Undergraduate Advisor Monthly Meet Up</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">MON, AUGUST 24, 2026 · 7:00 PM MST · VIRTUAL</span>
+<p style="margin:0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;height:72px;">A monthly, dedicated space for Undergraduate advisors to connect with one another and with me, ask questions, and get aligned on the year ahead before things get busy. Come ready to share what's on your mind.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://us02web.zoom.us/meeting/register/GyZKJCilTxW99TO7z5R3JQ" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">Register for the Advisor Meet Up</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">Upcoming Aurora Submission Deadline</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">DUE SUN, AUGUST 30, 2026</span>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">I am requesting that all chapters submit an article with one picture that summarizes the chapter's activities in Spring/Summer 2026. Highlight both the chapter's and individual members' achievements.<br><br>
+Remember, the Aurora helps to document your chapter's history with the sorority!</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://fs20.formsite.com/8i8VIT/auroramag/fill" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">Submit Your Article</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">Quarterly Undergraduate Pulse Meeting</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">MON, AUGUST 31, 2026 · 7:00 PM MST · VIRTUAL</span>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">The quarterly Undergraduate Pulse Meetings are opportunities to bring our undergraduates together from across the region to build community, to meet one another, to swap ideas, and to celebrate each other's accomplishments. Upon registration, you will receive a Zoom link to the meeting.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://us02web.zoom.us/meeting/register/cqNxu7CpRbGCbPgNXiQKEA" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">Register for the Pulse Meeting</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">St. Jude Walk — Fundraising Guide</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">NATIONAL WALK DATE: SAT, SEPT 26, 2026 · GOAL: $192 PER CHAPTER</span>
+<p style="margin:0 0 10px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">The nationwide St. Jude Walk is scheduled for <b>Sep. 26, 2026</b>, and Sigma Gamma Rho is committed to showing up in full force. As your chapter prepares to raise funds for this annual partnership, review the St. Jude Walk Fundraising Guide to support your efforts and achieve your goals. We are looking for each undergraduate chapter <b>to raise a minimum of $192</b>.<br><br><b>You got this!</b></p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://files.constantcontact.com/6494c19f001/e73c9e28-e676-4269-b56c-1ad36adb35f9.pdf?rdr=true" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">View Fundraising Guide</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#FAF7EF;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#A87605;">UG Chapter Regional Report</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#003DA5;letter-spacing:.5px;margin-bottom:10px;">GOALS &amp; MEMBERS DUE SUN, SEPTEMBER 27, 2026</span>
+<p style="margin:0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">Chapters will be receiving their respective Chapter Regional Report over the next few weeks to update throughout the year. Please enter your 2026–2027 chapter goals on the <i>"Goals"</i> tab, and enter all chapter members on the "Members" tab, including your advisor, <b>no later than Sep. 27, 2026</b>.</p>
+</td></tr>
+</tbody></table>
+</td>
+</tr>
+
+<!-- ACTION ITEMS -->
+<tr>
+<td class="wr-pad" style="background:#FAF7EF;padding:34px 28px;width:573px;height:843px;" bgcolor="#FAF7EF">
+<p style="margin:0 0 6px 0;font-family:Arial Black;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#003DA5;">Do This First</p>
+<h2 style="margin:0 0 18px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:24px;color:#003399;">3 Action Items</h2>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#ffffff;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td width="40" valign="top" style="padding-right:16px;">
+<table role="presentation" width="40" height="40" cellpadding="0" cellspacing="0" border="0" style="width:40px;height:40px;border-radius:50%;border:2px solid #C9A84C;background:#FBF6E9;">
+<tbody><tr><td align="center" valign="middle" style="font-family:Arial Black, Arial, sans-serif;color:#003DA5;font-size:16px;">01</td></tr>
+</tbody></table>
+</td>
+<td valign="top">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#003399;">2026–2028 WR Officer Form</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#A87605;letter-spacing:.5px;margin-bottom:10px;">*REQUIRED · ALL CHAPTERS</span>
+<p style="margin:0 0 12px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">Make sure your current officer roster is on file with the region <b>by August 10, 2026</b>. This is the foundation for how we reach the right people all biennium.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://docs.google.com/spreadsheets/d/11Pfc0rLBVizILVv6MzyuN_JCcGinjEspUXgdoCfhuZg/edit?usp=sharing" target="_blank" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#ffffff;text-decoration:none;">Complete Officer Form</a>
+</td></tr></tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td style="background:#ffffff;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td width="40" valign="top" style="padding-right:16px;">
+<table role="presentation" width="40" height="40" cellpadding="0" cellspacing="0" border="0" style="width:40px;height:40px;border-radius:50%;border:2px solid #C9A84C;background:#FBF6E9;">
+<tbody><tr><td align="center" valign="middle" style="font-family:Arial Black, Arial, sans-serif;color:#003DA5;font-size:16px;">02</td></tr>
+</tbody></table>
+</td>
+<td valign="top">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#003399;">Annual Certificate of Insurance (COI)</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#A87605;letter-spacing:.5px;margin-bottom:10px;">*REQUIRED · COLLEGE/UNIVERSITY COMPLIANCE</span>
+<p style="margin:0 0 12px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;">Your annual COI keeps your chapter compliant and recognized as an active organization on your campus.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://forms.cloud.microsoft/r/RXCFjJR9cg" target="_blank" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#ffffff;text-decoration:none;">Request Annual COI</a>
+</td></tr></tbody></table>
+<p style="margin:12px 0 0 0;font-size:12px;color:#003399;line-height:1.5;background:#FBF6E9;border-left:3px solid #C9A84C;padding:10px 14px;border-radius:6px;"><b>PLEASE NOTE:</b> This COI is <b>specifically intended for annual college/university compliance purposes only</b> and should not be used for chapter meetings, special events, vendor contracts, facility rentals, or other activity-specific insurance needs. Separate event-specific COIs must be requested for those purposes.</p>
+</td>
+</tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px 0;">
+<tbody><tr><td style="background:#ffffff;border:1px solid rgba(0,61,165,0.14);border-radius:14px;padding:18px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td width="40" valign="top" style="padding-right:16px;">
+<table role="presentation" width="40" height="40" cellpadding="0" cellspacing="0" border="0" style="width:40px;height:40px;border-radius:50%;border:2px solid #C9A84C;background:#FBF6E9;">
+<tbody><tr><td align="center" valign="middle" style="font-family:Arial Black, Arial, sans-serif;color:#003DA5;font-size:16px;">03</td></tr>
+</tbody></table>
+</td>
+<td valign="top">
+<h3 style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:16.5px;font-weight:700;color:#003399;">"Getting to Know Your Chapter" Survey</h3>
+<span style="display:block;font-family:Arial Black;font-size:11px;color:#A87605;letter-spacing:.5px;margin-bottom:10px;">5–10 MIN · HELPS ME SUPPORT YOU BETTER</span>
+<p style="margin:0 0 12px 0;font-family:Arial,sans-serif;font-size:13.8px;line-height:1.55;color:#003399;"><i>One chapter, one response.</i><br>Tell me what's working, what you need, and how you'd like to hear from me going forward. Complete this survey by <b>Sunday, August 16, 2026</b>.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://forms.gle/6gKioVkCgtV2dfoVA" target="_blank" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#ffffff;text-decoration:none;">Take the Survey</a>
+</td></tr></tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+
+</td>
+</tr>
+
+<!-- KEY DATES -->
+<tr>
+<td class="wr-pad" style="padding:34px 28px;background:linear-gradient(180deg, #003399, #28211a);" bgcolor="#00204F">
+<p style="margin:0 0 6px 0;font-family:Arial;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#D4A820;"><b>Mark Your Calendar</b></p>
+<h2 style="margin:0 0 18px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:24px;color:#ffffff;">Key Dates</h2>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>AUG 17, 2026 7:00 PM MST</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">Undergraduate Concerns Committee Meeting</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via Zoom</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>AUG 24, 2026 7:00 PM MST</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">WR UG Advisor Meet Up</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via Zoom</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>AUG 31, 2026 7:00 PM MST</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">Q1 Undergraduate Pulse Meeting</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via Zoom</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>EARLY OCT 2026</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">UCDF Grant Awards Disbursed</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Undergraduate Chapter Development Fund</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>OCT 17, 2026</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">WR Mighty Leadership Summit</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via RingCentral</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>LATE OCT 2026</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">Q2 Undergraduate Pulse Meeting</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via Zoom</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>EARLY NOV 2026</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">Fall 2026 Western Region Undergraduate Academic Check-in</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">The survey will be sent on Nov 1, 2026. Completion of the survey by Nov 13, 2026.</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>NOV 12, 2026</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">💙💛 104th Sigma Gamma Rho Founders Day 💛💙</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;"><br></p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td style="padding-bottom:20px;">
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>JAN 2027</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">WR Undergraduate &amp; Advisor Leadership Retreat</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">IN-PERSON!! Location will be announced soon.</p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td>
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>FEB 25–28, 2027</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">AFLV West Conference</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Anaheim, CA<br><br></p>
+</td>
+</tr>
+<tr>
+<td width="18" valign="top"><table role="presentation" width="14" height="14" cellpadding="0" cellspacing="0" border="0" style="width:14px;height:14px;border-radius:50%;background:#E8C766;border:3px solid #00204F;"><tbody><tr><td></td></tr></tbody></table></td>
+<td>
+<span style="display:block;font-family:Arial;font-size:11.5px;color:#D4A820;letter-spacing:.5px;margin-bottom:3px;"><b>APR 2027</b></span>
+<p style="margin:0 0 3px 0;color:#ffffff;font-weight:700;font-family:Arial,sans-serif;font-size:15px;">75th Western Regional Conference</p>
+<p style="margin:0;color:rgba(255,255,255,0.65);font-family:Arial,sans-serif;font-size:12.5px;">Virtual via RingCentral</p>
+</td>
+</tr>
+</tbody></table>
+
+<!-- 2-up photo grid: stacked table cells for mobile safety -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;">
+<tbody><tr>
+<td class="wr-stack" width="48%" valign="top" style="padding-right:6px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>
+</tr></tbody></table>
+</td>
+<td class="wr-stack" width="4%" style="font-size:1px;line-height:1px;">&nbsp;</td>
+<td class="wr-stack" width="48%" valign="top" style="padding-left:6px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>
+</tr></tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td align="center" valign="middle" style="border:none;border-radius:14px;background:#FBF6E9;padding:30px 16px;">
+<br>
+</td>
+</tr>
+
+<!-- CHAPTER SPOTLIGHT CALLOUT -->
+<tr>
+<td class="wr-pad" style="background:#ffffff;padding:34px 28px;border-bottom:1px solid rgba(0,61,165,0.14);" bgcolor="#ffffff">
+<p style="margin:0 0 6px 0;font-family:Arial Black;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#003DA5;">COMING NEXT ISSUE...</p>
+<h2 style="margin:0 0 18px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:24px;color:#003399;">Chapter Spotlight</h2>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr><td align="center" style="border:1.5px dashed #C9A84C;border-radius:14px;padding:22px;">
+<h3 style="margin:0 0 8px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;text-transform:uppercase;font-size:18px;color:#003DA5;">Want your chapter featured?</h3>
+<p style="margin:0 0 14px 0;font-family:Arial,sans-serif;font-size:13.8px;color:#003399;line-height:1.55;">Send me one win from this semester: a service project, a recruitment moment, a member accomplishment. Issue 02 will spotlight two chapters.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+<tbody><tr><td align="center" valign="middle" style="border:2px dashed #C9A84C;border-radius:14px;background:#FBF6E9;padding:24px 12px;border-color:#003399;">
+<img src="./renderedi---hgcv-cfggg-msazxb49-phu1.jpeg" alt="renderedi---hgcv-cfggg" width="1179" height="1230" style="max-width:100%;height:339px;display:block;object-fit:cover;width:464px;aspect-ratio:1179/1230;" jslog="138226; u014N:xr6bB; 53:WzAsMF0.">
+<br>
+</td></tr>
+</tbody></table>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td bgcolor="#003DA5" style="border-radius:8px;">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSe_8AgxtRKFj4IpW8BjVsgUh_W4qWhggGXMSrVW17WZBXLgAA/viewform?usp=preview" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 18px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#D4A820;text-decoration:none;">Submit Your Chapter's Win</a>
+</td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td align="center" valign="middle" style="border:none;border-radius:14px;background:#FBF6E9;padding:30px 16px;">
+<br>
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+<td class="wr-pad" align="center" style="background:linear-gradient(180deg, #003399, #28211a);padding:30px 28px 40px 28px;" bgcolor="#003399">
+<p style="margin:0 0 4px 0;font-family:Arial Black, Arial, sans-serif;font-weight:900;color:#c99b2a;font-size:15px;letter-spacing:.5px;"><br>
+<img src="./screenshot-2026-08-01-at-10-40-54-am-msazn7gv-cj5p.png" alt="screenshot-2026-08-01-at-10-40-54-am" width="2050" height="1364" style="max-width:100%;height:80px;display:block;object-fit:cover;width:159px;aspect-ratio:2050/1364;" jslog="138226; u014N:xr6bB; 53:WzAsMF0.">
+<br>
+DR. MININA JOHNSON, DBA, PMP</p>
+<p style="margin:2px 0;color:rgba(255,255,255,0.55);font-family:Arial,sans-serif;font-size:12px;line-height:1.6;">Western Region Undergraduate Chapter Coordinator</p>
+<p style="margin:2px 0;color:rgba(255,255,255,0.55);font-family:Arial,sans-serif;font-size:12px;line-height:1.6;">Sigma Gamma Rho Sorority, Inc.</p>
+<p style="margin:14px 0 0 0;color:rgba(255,255,255,0.55);font-family:Arial,sans-serif;font-size:12px;line-height:1.6;">Reply anytime, I read every email. · Next issue: September 2026</p>
+<p style="margin:16px 0 0 0;color:rgba(255,255,255,0.4);font-family:Arial,sans-serif;font-size:11px;line-height:1.6;">
+<a href="mailto:ucc@westernsgrho.org" style="color:#c99b2a;">ucc@westernsgrho.org</a><br>
+You're receiving this as a Sigma Gamma Rho Sorority - Western Region Undergraduate member or advisor.<br>
+If this no longer applies to you, please reply to this email to unsubscribe.
+</p>
+</td>
+</tr>
+
+</tbody></table>
+<!--[if mso]>
+</td></tr></table>
+<![endif]-->
+</center>
